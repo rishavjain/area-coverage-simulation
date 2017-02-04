@@ -1,4 +1,4 @@
-function draw_partitions( params, partitions, identifiers, action, additionalText)
+function draw_partitions( params, partitions, identifiers, action, plotTitle, additionalText)
 
 numPartitions = params.agents.num;
 
@@ -6,10 +6,8 @@ figure(params.fig1.num);
 
 if strcmp(action, 'initial')    
     subplot(params.fig1.subplot(1), params.fig1.subplot(2), params.fig1.partitions);
-    plotTitle = 'Initial Partitions';
 elseif strcmp(action, 'areaParitioning')    
     subplot(params.fig1.subplot(1), params.fig1.subplot(2), params.fig1.env);
-    plotTitle = 'Equi-Area Partitioning';
 end
 
 cla;

@@ -1,4 +1,6 @@
-function [partitions, neighbors] = equi_area_partitioning(params, initLocations)
+function [locations, partitions, centroids, neighbors] = equi_area_partitioning(params, initLocations)
+
+logger(params, 2, 'creating equal area partitions');
 
 numAgents = params.agents.num;
 threshold = params.part.threshold;
@@ -15,7 +17,7 @@ while sum > threshold
     
     if initialParitions
         % draw initial paritions in partitions
-        draw_partitions(params, partitions, locations, 'initial');
+        draw_partitions(params, partitions, locations, 'initial', 'Initial Partitions');
         drawnow;
         initialParitions = 0;
     end
@@ -53,7 +55,7 @@ while sum > threshold
     end
     
     draw_partitions(params, partitions, locations, 'areaParitioning', ...
-        sprintf('Threshold : %f\nSum : %f',threshold,sum));
+        'Equi-Area Partitioning', sprintf('Threshold : %f\nSum : %f',threshold,sum));
     drawnow;
 
     if sum > threshold
@@ -64,10 +66,12 @@ end
 %%% Collapsing Close Points
 allPts = [];
 avgPerimeter = 0;
+centroids = zeros(size(locations));
 
 for i=1:numAgents
     allPts = [allPts; partitions{i}(1:end-1, :)];
-    [~, ~ ,~ , perimeter] = polygeom(partitions{i}(1:end-1, 1), partitions{i}(1:end-1, 2));
+    [~, centX, centY , perimeter] = polygeom(partitions{i}(1:end-1, 1), partitions{i}(1:end-1, 2));
+    centroids(i, :) = [centX, centY];
     avgPerimeter = avgPerimeter + perimeter;
 end
 
@@ -120,7 +124,9 @@ end
 neighbors = neighbors + neighbors';
 
 draw_partitions(params, partitions, locations, 'areaParitioning', ...
-        sprintf('Threshold : %f\nSum : %f',threshold,sum));
+        'Equi-Area Partitioning', sprintf('Threshold : %f\nSum : %f',threshold,sum));
 drawnow;
-    
+
+logger(params, 2, 'creating equi-area partitioning complete');
+
 end
