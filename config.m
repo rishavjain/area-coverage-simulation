@@ -14,7 +14,8 @@ params.env.size = 100;
 % params.env.initLocations = [-17,32;17,26;-6,-32];
 params.env.initLocations = [29,0;38,-27;-19,42;-13,-1;-37,-12;-2,-32;-8,41;-43,-36;43,11;-24,46;-36,-26;31,14;-14,-46;-46,-22;-13,-15];
 %% partitioning parameters
-params.part.threshold = 0.00025 * (params.env.size*params.env.size) * params.agents.num;
+% params.part.threshold = 0.00025 * (params.env.size*params.env.size) * params.agents.num;
+params.part.threshold = 0.025 * (params.env.size*params.env.size) * params.agents.num;
 params.part.factor = (0.25 * params.env.size*params.env.size) / params.agents.num;
 
 %% simulation parameters
@@ -38,7 +39,7 @@ params.log.level = 1;
 
 %% code
 addpath(genpath('.'));
-rmpath('.git');
+rmpath(genpath('.git'));
 
 if isfield(params.env, 'initLocations')
     if ~isequal( size(params.env.initLocations), [params.agents.num 2] )
