@@ -13,11 +13,10 @@ end
 cla;
 hold on;
 axis equal;
-grid on;
-grid minor;
-box on;
-
 axis off;
+
+axis(0.5*[-params.env.size params.env.size -params.env.size params.env.size])
+
 
 title(plotTitle, 'FontSize', 16);
 

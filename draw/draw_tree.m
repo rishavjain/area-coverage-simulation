@@ -6,11 +6,9 @@ subplot(params.fig1.subplot(1), params.fig1.subplot(2), params.fig1.tree);
 cla;
 hold on;
 axis equal;
-grid on;
-grid minor;
-box on;
-
 axis off;
+
+axis(0.5*[-params.env.size params.env.size -params.env.size params.env.size])
 
 title('Schedule Tree', 'FontSize', 16);
 

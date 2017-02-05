@@ -10,9 +10,10 @@ else
     initLocations = random_init_locations(params);
 end
 
-invalidScheduleTree = 1;
-while invalidScheduleTree
-    [initLocations, partitions, centroids, neighbors] = equi_area_partitioning(params, initLocations);
+while 1 % loop until a valid schedule tree is obtained
+%     [initLocations, partitions, centroids, neighbors] = equi_area_partitioning(params, initLocations);
+    
+    load('tmp/partition-data.mat', 'initLocations', 'partitions', 'centroids', 'neighbors');
 
     draw_partitions(params, partitions, centroids, 'initial', 'Final Partitions');
     drawnow;
@@ -20,11 +21,22 @@ while invalidScheduleTree
     scheduleTree = create_schedule_tree(params, centroids, neighbors);
     
     if ~isempty(scheduleTree)
-        invalidScheduleTree = 0;
+        break;
     else
         logger(params, 3, 'repeating the procedure using new random positions');
         initLocations = random_init_locations(params);        
     end    
 end
 
-create_schedule(params, partitions, graph);
+[ agents ] = initialize_agents( params, partitions, centroids );
+[ agents ] = create_schedule( params, agents, scheduleTree );
+
+time = 0;
+dT = params.sim.timestep;
+
+draw_info(params, time, 'initial');
+drawnow;
+
+draw_env(params, agents, 'initial');
+draw_agents(params, agents, 'initial');
+drawnow;
