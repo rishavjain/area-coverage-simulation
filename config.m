@@ -6,7 +6,9 @@ params = {};
 params.agents.num = 15;
 params.agents.bodyRadius = 0.5;
 params.agents.speed = 10;
-params.agents.commrange = 2;
+params.agents.angularSpeed = pi/6;
+params.agents.commRange = 3;
+params.agents.setupTime = 10;
 
 %% environment parameters
 params.env.size = 100;
@@ -16,8 +18,12 @@ params.env.size = 100;
 params.env.initLocations = [29,0;38,-27;-19,42;-13,-1;-37,-12;-2,-32;-8,41;-43,-36;43,11;-24,46;-36,-26;31,14;-14,-46;-46,-22;-13,-15];
 %% partitioning parameters
 params.part.threshold = 0.00025 * (params.env.size*params.env.size) * params.agents.num;
-params.part.threshold = 0.0025 * (params.env.size*params.env.size) * params.agents.num;
+% params.part.threshold = 0.0025 * (params.env.size*params.env.size) * params.agents.num;
 params.part.factor = (0.25 * params.env.size*params.env.size) / params.agents.num;
+
+%% scheduling parameters
+params.sch.timeMargin = 0.5;
+% params.sch.
 
 %% simulation parameters
 params.sim.maxtime = 6000;         % maximum time for simulation

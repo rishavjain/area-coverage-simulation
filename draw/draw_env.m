@@ -7,15 +7,6 @@ figure(params.fig1.num);
 subplot(params.fig1.subplot(1), params.fig1.subplot(2), params.fig1.env);
 
 if strcmp(action, 'initial')
-    cla;
-    hold on;
-    axis equal;
-    axis off;
-
-    axis(0.5*[-params.env.size params.env.size -params.env.size params.env.size])
-
-    title('Environment Map', 'FontSize', 16);
-    
     hPartitions = zeros(1, numAgents);
     hText = zeros(1, numAgents);
     hMeetingArrows = cell(1, numAgents);

@@ -17,7 +17,7 @@ gplot(graph, nodeLocations);
 
 for i=1:size(nodeLocations,1)
     nodeSize = sqrt(2*length(find(graph(i,:)==1))*50);
-    scatter(nodeLocations(i,1), nodeLocations(i,2), (75 + 20*nodeSize), 'filled');
+    scatter(nodeLocations(i,1), nodeLocations(i,2), (100 + 50*nodeSize), 'filled');
     text(nodeLocations(i,1), nodeLocations(i,2), num2str(i), 'FontSize', nodeSize*0.75, 'Color', 'white', ...
         'FontWeight', 'bold', 'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle');                
 end

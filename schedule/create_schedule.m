@@ -2,13 +2,6 @@ function [ agents ] = create_schedule( params, agents, scheduleTree )
 
 numAgents = params.agents.num;
 
-% adding 'level' and 'visit' field to agents
-for i=1:numAgents
-    agents(i).level = 0;
-    agents(i).meeting(1).pt = [];
-    agents(i).meeting(1).neighbors = [];
-end
-
 %%% finding the middle node in Graph_Matrix (=> index)
 maxValue = 0;
 index = 0;
@@ -90,6 +83,7 @@ for i=1:numAgents
     if isempty(agents(i).travelTimes)
         agents(i).travelTimes = agents(i).totalTravelTime;
     end
+    agents(i).totalMeetings = length(agents(i).travelTimes);
 end
 
 end

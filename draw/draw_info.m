@@ -1,6 +1,6 @@
 function draw_info( params, time, action )
 
-persistent hTime hLegend
+persistent hTime
 
 figure(params.fig1.num);
 subplot(params.fig1.subplot(1), params.fig1.subplot(2), params.fig1.env);
@@ -10,6 +10,8 @@ if strcmp(action, 'initial')
     hold on;
     axis equal;
     axis off;
+    
+    axis(0.5*[-params.env.size params.env.size -params.env.size-5 params.env.size])
 
     title('Environment Map', 'FontSize', 16);
     
@@ -17,9 +19,10 @@ if strcmp(action, 'initial')
     dTStr = sprintf('  dT: %.3f', params.sim.timestep);
     
     hTime = text(-0.5*params.env.size, -0.5*params.env.size - 5, {timeStr, dTStr}, ...
-        'HorizontalAlignment', 'Left', 'FontSize', 12, 'BackgroundColor', [.7 .9 .7], 'Margin', 7);    
+        'HorizontalAlignment', 'Left', 'FontSize', 12, 'BackgroundColor', [.7 .9 .7], ...
+        'Margin', 7, 'FontName', 'FixedWidth', 'FontWeight', 'bold');    
     
-    dummyPolygon = 0.1*params.env.boundary;
+    dummyPolygon = params.env.boundary;
     
     rpatch = patch(dummyPolygon(:,1), dummyPolygon(:,2), 'r', 'FaceAlpha', 1);
     bpatch = patch(dummyPolygon(:,1), dummyPolygon(:,2), 'b', 'FaceAlpha', 1);
@@ -32,7 +35,12 @@ if strcmp(action, 'initial')
         'Agent knows about dead agent', 'Agent''s new partition');
     
     set(hLegend, 'Position', [0.843 0.0249 .154 .212], 'Color', [.94 .94 .94], ...
-        'EdgeColor', 'w');    
+        'EdgeColor', 'white', 'FontSize', 11, 'ButtonDownFcn', []);    
+    
+elseif strcmp(action, 'update')
+    timeStr = sprintf('TIME: %.3f', time);    
+    dTStr = sprintf('  dT: %.3f', params.sim.timestep);
+    set(hTime, 'String', {timeStr, dTStr});
 end
 
 end
